@@ -21,15 +21,16 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">员工信息表</h3>
-
               <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                <form action="{% url 'myadmin_user_index' 1 %}" method="get">
+                    <div class="input-group input-group-sm" style="width:150px;">
+                      <input type="text" name="keyword" class="form-control pull-right" placeholder="账号/昵称">
 
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
+                      <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                </form>
               </div>
             </div>
             <!-- /.box-header -->
@@ -37,24 +38,35 @@
               <table class="table table-hover">
                 <tr>
                   <th>ID</th>
-                  <th>店铺名称</th>
-                  <th>店铺封面</th>
-                  <th>店铺logo</th>
-                  <th>联系电话</th>
+                  <th>员工帐号</th>
+                  <th>昵称</th>
                   <th>当前状态</th>
                   <th>添加时间</th>
                   <th>修改时间</th>
                   <th>操作</th>
                 </tr>
+                  {% for vo in userlist %}
                 <tr>
-                  <td>183</td>
-                  <td>三元桥店</td>
-                  <td><img style="height:40px" src="dist/img/photo1.png"></td>
-                  <td><img style="height:40px" src="dist/img/logo.png"></td>
-                  <td>135366887799</td>
-                  <td><span class="label label-success">正常</span></td>
-                  <td>2020-08-12</td>
-                  <td>2020-08-16</td>
+                  <td>{{ vo.id }}</td>
+                  <td>{{ vo.username }}</td>
+                  <td>{{ vo.nickname }}</td>
+                  <td>
+                      {% if vo.status == 1 %}
+                        <span style="color:green">正常</span>
+                      {% elif vo.status == 2 %}
+                        <span style="color:red">禁用</span>
+                      {% elif vo.status == 6 %}
+                        <span style="color:blue">管理员</span>
+                      {% elif vo.status == 9 %}
+                        <span style="color:red">已删除</span>
+                      {% else %}
+                        <span style="color:red">未知状态</span>
+                      {% endif %}
+                  </td>
+                  <td>{{ vo.create_at|date:'Y-m-d-H:i:s' }}</td>
+                  <td>{{ vo.update_at|date:'Y-m-d-H:i:s' }}</td>
+
+
                   <td>
                     <button type="button" class="btn btn-success btn-xs">
                       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑</button>
@@ -64,42 +76,7 @@
                       <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查看订单</button>
                   </td>
                 </tr>
-                <tr>
-                  <td>183</td>
-                  <td>四惠店</td>
-                  <td><img style="height:40px" src="dist/img/photo2.png"></td>
-                  <td><img style="height:40px" src="dist/img/logo.png"></td>
-                  <td>135366887799</td>
-                  <td><span class="label label-success">正常</span></td>
-                  <td>2020-08-12</td>
-                  <td>2020-08-16</td>
-                  <td>
-                    <button type="button" class="btn btn-success btn-xs">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑</button>
-                    <button type="button" class="btn btn-danger btn-xs">
-                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-                    <button type="button" class="btn btn-warning btn-xs">
-                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查看订单</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>183</td>
-                  <td>五棵松店</td>
-                  <td><img style="height:40px" src="dist/img/photo4.jpg"></td>
-                  <td><img style="height:40px" src="dist/img/logo.png"></td>
-                  <td>135366887799</td>
-                  <td><span class="label label-success">正常</span></td>
-                  <td>2020-08-12</td>
-                  <td>2020-08-16</td>
-                  <td>
-                    <a role="button" class="btn btn-success btn-xs">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑</a>
-                    <a role="button" class="btn btn-danger btn-xs">
-                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a>
-                    <a role="button" class="btn btn-warning btn-xs">
-                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查看订单</a>
-                  </td>
-                </tr>
+                  {% endfor %}
               </table>
             </div>
             <!-- /.box-body -->
@@ -107,11 +84,12 @@
               <a role="button" href="add.html" class="btn btn-primary">
                       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加员工</a>
               <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li><a href="{% url 'myadmin_user_index' pIndex|add:-1 %}?{{ mywhere|join:'&' }}">&laquo;</a></li>
+                  {% for p in plist %}
+                <li {% if p == pIndex %}class="active"{% endif %}><a href="{% url 'myadmin_user_index' p %}?{{ mywhere|join:'&' }}">{{ p }}</a></li>
+                  {% endfor %}
+
+                <li><a href="{% url 'myadmin_user_index' pIndex|add:1 %}?{{ mywhere|join:'&' }}">&raquo;</a></li>
               </ul>
             </div>
           </div>
