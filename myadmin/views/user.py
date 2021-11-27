@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from myadmin.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
+from datetime import datetime
 
 def index(request,pIndex=1):
     umod=User.objects
@@ -17,10 +18,6 @@ def index(request,pIndex=1):
     if status !='':
         ulist=ulist.filter(status=status)
         mywhere.append('status='+status)
-
-
-
-
     #执行分页处理
     pIndex=int(pIndex)
     page=Paginator(ulist,5)
@@ -37,10 +34,30 @@ def index(request,pIndex=1):
 
 
 def add(request):
-    pass
+    return render(request,'myadmin/user/add.html')
 
 def insert(request):
-    pass
+    try:
+        ob=User()
+        ob.username=request.POST['username']
+        ob.nickname=request.POST['nickname']
+        #将当前员工的密码做md5处理
+        import hashlib,random
+        md5=hashlib.md5()
+        n=random.randint(100000,999999)
+        s=request.POST['password']+str(n)
+        md5.update(s.encode('utf-8'))
+        ob.password_hash=md5.hexdigest()
+        ob.password_salt=n
+        ob.status=1
+        ob.create_at=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        ob.update_at=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        ob.save()
+        context={'info':'添加成功! '}
+    except Exception as err:
+        print(err)
+        context = {'info': '添加失败! '}
+    return render(request,'myadmin/info.html',context)
 
 def delete(request,uid=0):
     pass
