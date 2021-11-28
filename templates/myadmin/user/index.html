@@ -68,12 +68,10 @@
 
 
                   <td>
-                    <button type="button" class="btn btn-success btn-xs">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑</button>
-                    <button type="button" class="btn btn-danger btn-xs">
+                    <a type="button" href="{% url 'myadmin_user_edit' vo.id %}" class="btn btn-success btn-xs">
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑</a>
+                    <button type="button" onclick="doDel('{% url 'myadmin_user_delete' vo.id %}')" class="btn btn-danger btn-xs">
                       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-                    <button type="button" class="btn btn-warning btn-xs">
-                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查看订单</button>
                   </td>
                 </tr>
                   {% endfor %}
@@ -81,7 +79,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <a role="button" href="add.html" class="btn btn-primary">
+              <a role="button" href="{% url 'myadmin_user_add' %}" class="btn btn-primary">
                       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加员工</a>
               <ul class="pagination pagination-sm no-margin pull-right">
                 <li><a href="{% url 'myadmin_user_index' pIndex|add:-1 %}?{{ mywhere|join:'&' }}">&laquo;</a></li>

@@ -60,10 +60,38 @@ def insert(request):
     return render(request,'myadmin/info.html',context)
 
 def delete(request,uid=0):
-    pass
+    try:
+        ob=User.objects.get(id=uid)
+        ob.status=9
+        ob.update_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        ob.save()
+        context={'info':'删除成功! '}
+    except Exception as err:
+        print(err)
+        context = {'info': '删除失败! '}
+    return render(request,'myadmin/info.html',context)
+
 
 def edit(request,uid=0):
-    pass
+    try:
+        ob = User.objects.get(id=uid)
+        context={'user':ob}
+        return render(request, 'myadmin/user/edit.html', context)
+    except Exception as err:
+        print(err)
+        context = {'info': '没有找到要修改的信息!'}
+        return render(request, 'myadmin/info.html/', context)
 
 def update(request,uid):
-    pass
+    try:
+        ob=User.objects.get(id=uid)
+        ob.status=request.POST['nickname']
+        ob.status=request.POST['status']
+        ob.update_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        ob.save()
+        context={'info':'修改成功! '}
+    except Exception as err:
+        print(err)
+        context = {'info': '修改失败! '}
+    return render(request,'myadmin/info.html',context)
+
