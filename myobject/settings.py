@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web.apps.WebConfig',
-    'myadmin',
-    'mobile'
+    'myadmin.apps.MyadminConfig',
+    'mobile.apps.MobileConfig'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'myadmin.shopmiddleware.ShopMiddleware',# 注册自定义中间键
 ]
 
 ROOT_URLCONF = 'myobject.urls'

@@ -4,7 +4,13 @@ from myadmin.views import index,user
 
 urlpatterns = [
     path('',index.index,name='myadmin_index'),
+    #后台管理员登录/推出路由
+    path('login',index.login,name='myadmin_login'),
+    path('dologin',index.dologin,name='myadmin_dologin'),
+    path('logout',index.logout,name='myadmin_logout'),
 
+
+    #员工信息管理
     path('user/<int:pIndex>',user.index,name='myadmin_user_index'),
     path('user/add', user.add, name='myadmin_user_add'),
     path('user/insert', user.insert, name='myadmin_user_insert'),
