@@ -12,7 +12,7 @@ class ShopMiddleware:
         path=request.path
         print('url',path)
 
-        urllist=['/myadmin/login','/myadmin/dologin','/myadmin/logout']
+        urllist=['/myadmin/login','/myadmin/dologin','/myadmin/logout','/myadmin/verify']
 
         if re.match(r'^/myadmin',path) and (path not in urllist):
             if 'adminuser' not in request.session:

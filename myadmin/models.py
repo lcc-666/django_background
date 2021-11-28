@@ -11,7 +11,7 @@ class User(models.Model):
     update_at=models.DateTimeField(default=datetime.now)
 
     def toDict(self):
-        return {'id':self.id,'username':self.username,'nickname':self.nickname,'password_hash':self.password_hash,'password_salt':self.password_salt,'status':self.status,'creat_at':self.create_at,'update_at':self.update_at}
+        return {'id':self.id,'username':self.username,'nickname':self.nickname,'password_hash':self.password_hash,'password_salt':self.password_salt,'status':self.status,'create_at':self.create_at.strftime('%Y-%m-%d %H:%M:%S'),'update_at':self.update_at.strftime('%Y-%m-%d %H:%M:%S')}
 
     class Meta:
         db_table='user'

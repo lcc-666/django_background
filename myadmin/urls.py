@@ -8,6 +8,7 @@ urlpatterns = [
     path('login',index.login,name='myadmin_login'),
     path('dologin',index.dologin,name='myadmin_dologin'),
     path('logout',index.logout,name='myadmin_logout'),
+    path('verify',index.verify,name='myadmin_verify'),
 
 
     #员工信息管理
