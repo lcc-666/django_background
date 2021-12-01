@@ -5,12 +5,12 @@ import re
 class ShopMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        print('ShopMiddleware')
+        #print('ShopMiddleware')
         # One-time configuration and initialization.
 
     def __call__(self, request):
         path=request.path
-        print('url',path)
+        #print('url',path)
 
         urllist=['/myadmin/login','/myadmin/dologin','/myadmin/logout','/myadmin/verify']
 

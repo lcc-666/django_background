@@ -1,9 +1,10 @@
 from django.urls import path
 
-from myadmin.views import index,user,shop
+from myadmin.views import index,user,shop,category
 
 urlpatterns = [
     path('',index.index,name='myadmin_index'),
+
     #后台管理员登录/推出路由
     path('login',index.login,name='myadmin_login'),
     path('dologin',index.dologin,name='myadmin_dologin'),
@@ -26,5 +27,13 @@ urlpatterns = [
     path('shop/del/<int:sid>', shop.delete, name='myadmin_shop_delete'),
     path('shop/edit/<int:sid>', shop.edit, name='myadmin_shop_edit'),
     path('shop/update/<int:sid>', shop.update, name='myadmin_shop_update'),
+
+    #菜品类别信息管理
+    path('category/<int:pIndex>',category.index,name='myadmin_category_index'),
+    path('category/add', category.add, name='myadmin_category_add'),
+    path('category/insert', category.insert, name='myadmin_category_insert'),
+    path('category/del/<int:cid>', category.delete, name='myadmin_category_del'),
+    path('category/edit/<int:cid>', category.edit, name='myadmin_category_edit'),
+    path('category/update/<int:cid>', category.update, name='myadmin_category_update'),
 
 ]

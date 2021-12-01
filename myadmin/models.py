@@ -33,3 +33,14 @@ class Shop(models.Model):
 
     class Meta:
         db_table = "shop"  # 更改表名
+
+#菜品分类信息模型
+class Category(models.Model):
+    shop_id = models.IntegerField()        #店铺id
+    name = models.CharField(max_length=50)#分类名称
+    status = models.IntegerField(default=1)        #状态:1正常/9删除
+    create_at = models.DateTimeField(default=datetime.now)    #创建时间
+    update_at = models.DateTimeField(default=datetime.now)    #修改时间
+
+    class Meta:
+        db_table = "category"  # 更改表名
