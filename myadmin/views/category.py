@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from myadmin.models import Category,Shop
 from django.core.paginator import Paginator
 from datetime import datetime
@@ -37,6 +37,10 @@ def index(request,pIndex=1):
     context={'categorylist':list2,'plist':plist,'pIndex':pIndex,'maxpages':maxpages,'mywhere':mywhere}
     return render(request,'myadmin/category/index.html',context)
 
+def loadCategory(request,sid):
+    clist = Category.objects.filter(status__lt=9,shop_id=sid).values("id","name")
+    #返回QuerySet对象，使用list强转成对应的菜品分类列表信息
+    return JsonResponse({'data':list(clist)})
 
 def add(request):
     #获取当前店铺信息

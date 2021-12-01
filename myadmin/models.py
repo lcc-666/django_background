@@ -44,3 +44,19 @@ class Category(models.Model):
 
     class Meta:
         db_table = "category"  # 更改表名
+
+class Product(models.Model):
+    shop_id = models.IntegerField()        #店铺id
+    category_id = models.IntegerField()    #菜品分类id
+    cover_pic = models.CharField(max_length=50)    #菜品图片
+    name = models.CharField(max_length=50)#菜品名称
+    price = models.FloatField()    #菜品单价
+    status = models.IntegerField(default=1)        #状态:1正常/2停售/9删除
+    create_at = models.DateTimeField(default=datetime.now)    #创建时间
+    update_at = models.DateTimeField(default=datetime.now)    #修改时间
+
+    def toDict(self):
+        return {'id':self.id,'shop_id':self.shop_id,'category_id':self.category_id,'cover_pic':self.cover_pic,'name':self.name,'price':self.price,'status':self.status,'create_at':self.create_at.strftime('%Y-%m-%d %H:%M:%S'),'update_at':self.update_at.strftime('%Y-%m-%d %H:%M:%S')}
+
+    class Meta:
+        db_table = "product"  # 更改表名
