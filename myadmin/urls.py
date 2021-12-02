@@ -1,6 +1,6 @@
 from django.urls import path
 
-from myadmin.views import index,user,shop,category,product
+from myadmin.views import index,user,shop,category,product,member
 
 urlpatterns = [
     path('',index.index,name='myadmin_index'),
@@ -43,5 +43,6 @@ urlpatterns = [
     path('category/del/<int:cid>', category.delete, name='myadmin_category_del'),
     path('category/edit/<int:cid>', category.edit, name='myadmin_category_edit'),
     path('category/update/<int:cid>', category.update, name='myadmin_category_update'),
-
+    #会员信息管理路由
+    path('member/<int:pIndex>',member.index,name='myadmin_member_index'),
 ]
