@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/common.css">
+    <link rel="stylesheet" href="{% static 'web/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'web/css/common.css' %}">
     <style type="text/css">
         body{min-height:2000px;padding-top:70px;}
 
@@ -23,11 +24,11 @@
             font-size:14px;
             text-align:center;
         }
-        
-        table tr td{font-size:11px;} 
+
+        table tr td{font-size:11px;}
         table tr td.price{color:red;}
         table tr td.num span{color:red;padding:0px 5px}
-        table tr td.num i{border-width:0px;background-color:#ddd;}  
+        table tr td.num i{border-width:0px;background-color:#ddd;}
 
         div.shoplist div.bn{font-size:12px;line-height:25px;}
         div.shoplist div.bn span.price{color:red;}
@@ -55,8 +56,8 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="../navbar/">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"> 张无忌</a></li>
-            <li><a href="../navbar-static-top/">退出</a></li>
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"> {{ request.session.webuser.nickname }}</a></li>
+            <li><a href="{% url 'web_logout' %}">退出</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -105,16 +106,16 @@
                             <td><a href="#" class="btn btn-danger btn-xs" role="button">删除</a></td>
                         </tr>
                     </table>
-                    
+
                     <li class="list-group-item">
-                        <b>购买方式: &nbsp; </b>  
-                        <input type="radio" name="ptype" checked value="1"> 堂吃 &nbsp; 
-                        <input type="radio" name="ptype" value="2"> 打包 &nbsp; 
+                        <b>购买方式: &nbsp; </b>
+                        <input type="radio" name="ptype" checked value="1"> 堂吃 &nbsp;
+                        <input type="radio" name="ptype" value="2"> 打包 &nbsp;
                     </li>
                     <li class="list-group-item">
-                        <b>支付方式: &nbsp; </b> 
-                        <input type="radio" name="bank" checked value="1"> 现金 &nbsp; 
-                        <input type="radio" name="bank" value="2"> 支付宝 &nbsp; 
+                        <b>支付方式: &nbsp; </b>
+                        <input type="radio" name="bank" checked value="1"> 现金 &nbsp;
+                        <input type="radio" name="bank" value="2"> 支付宝 &nbsp;
                         <input type="radio" name="bank" value="3"> 微信
                     </li>
 
@@ -122,7 +123,7 @@
                         <div style="width:120px;float:left;margin:5px 0px;">合计：￥<span style="color:red;font-weight:bold;">168.00</span> 元</div>
                         <button type="submit" class="btn btn-warning" style="width:130px;float:right">结 &nbsp; 算</button>
                     </div>
-             
+
             </div>
         </div>
         <div class="col-md-8">
@@ -131,7 +132,7 @@
             <div class="row shoplist">
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
                         <div class="bn">￥<span class="price">25.00</span>元</a>
@@ -141,7 +142,7 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
                         <div class="bn">￥<span class="price">25.00</span>元
@@ -151,7 +152,7 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
                         <div class="bn">￥<span class="price">25.00</span>元
@@ -161,7 +162,7 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
                         <div class="bn">￥<span class="price">25.00</span>元
@@ -171,7 +172,7 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
                         <div class="bn">￥<span class="price">25.00</span>元
@@ -181,158 +182,158 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
-                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp; 
+                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp;
                         <a href="#" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a></p>
                       </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
-                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp; 
+                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp;
                         <a href="#" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a></p>
                       </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
-                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp; 
+                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp;
                         <a href="#" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a></p>
                       </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
-                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp; 
+                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp;
                         <a href="#" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a></p>
                       </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                      <img src="static/images/timg.jpg" alt="...">
+                      <img src="{% static 'web/images/timg.jpg' %}" alt="...">
                       <div class="caption">
                         <h6>梅菜扣肉+番茄鸡蛋</h6>
-                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp; 
+                        <p><a href="#" class="btn btn-default btn-xs" role="button">￥<span style="color:red">25.00</span>元</a> &nbsp;
                         <a href="#" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a></p>
                       </div>
                     </div>
                 </div>
-            </div>   
+            </div>
             <h4 style="padding-bottom:9px;border-bottom:1px solid #eee;"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"> 盖饭系列：</h4>
             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
-                             alt="通用的占位符缩略图">
-                    </a>
-                </div>
-            </div>   
-            <h4 style="padding-bottom:9px;border-bottom:1px solid #eee;"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"> 汤/饮料：</h4>
-            <div class="row">
-                <div class="col-sm-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
-                             alt="通用的占位符缩略图">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
-                             alt="通用的占位符缩略图">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
-                             alt="通用的占位符缩略图">
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <img src="static/images/timg.jpg"
+                        <img src="{% static 'web/images/timg.jpg' %}"
                              alt="通用的占位符缩略图">
                     </a>
                 </div>
             </div>
-            
+            <h4 style="padding-bottom:9px;border-bottom:1px solid #eee;"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"> 汤/饮料：</h4>
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                        <img src="{% static 'web/images/timg.jpg' %}"
+                             alt="通用的占位符缩略图">
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                        <img src="{% static 'web/images/timg.jpg' %}"
+                             alt="通用的占位符缩略图">
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                        <img src="{% static 'web/images/timg.jpg' %}"
+                             alt="通用的占位符缩略图">
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                        <img src="{% static 'web/images/timg.jpg' %}"
+                             alt="通用的占位符缩略图">
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- 页面主体结束 -->
 
-    <script src="static/js/jquery.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
+    <script src="{% static 'web/js/jquery.min.js' %}"></script>
+    <script src="{% static 'web/js/bootstrap.min.js' %}"></script>
 
 </body>
 </html>
