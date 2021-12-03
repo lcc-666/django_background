@@ -8,6 +8,13 @@ def index(request):
 
 def webindex(request):
     context={'categorylist':request.session.get('categorylist',{}).items()}
+    # 尝试从session中获取购物车信息
+    cartlist = request.session.get('cartlist', {})
+    total_money=0 #初始化一个总金额
+    #遍历购物车中的价格进行累加
+    for vo in cartlist.values():
+        total_money+=vo['num']*vo['price']
+    request.session['total_money'] = total_money
     return render(request,'web/index.html',context)
 
 def login(request):
