@@ -2,17 +2,23 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
-from myadmin.models import User
+from myadmin.models import User,Shop,Category,Product
 def index(request):
     return redirect(reverse('web_index'))
 
 def webindex(request):
-    return render(request,'web/index.html')
+    context={'categorylist':request.session.get('categorylist',{}).items()}
+    return render(request,'web/index.html',context)
 
 def login(request):
-    return render(request,'web/login.html')
+    shoplist=Shop.objects.filter(status=1)
+    context={'shoplist':shoplist}
+    return render(request,'web/login.html',context)
 def dologin(request):
     try:
+        if request.POST['shop_id'] =='0':
+            return redirect(reverse('web_login')+'?errinfo=1')
+
         if request.POST['code'] !=request.session['verifycode']:
             return redirect(reverse('web_login')+'?errinfo=2')
 
@@ -25,7 +31,26 @@ def dologin(request):
             md5.update(s.encode('utf-8'))
             if user.password_hash == md5.hexdigest():
                 request.session['webuser']=user.toDict()
-                print('登录成功')
+                #print('登录成功')
+                #获取当前店铺信息
+                shopob=Shop.objects.get(id=request.POST['shop_id'])
+                request.session['shopinfo']=shopob.toDict()
+                #获取当前店铺中所有的菜品类别和菜品信息
+                clist=Category.objects.filter(shop_id=shopob.id,status=1)
+                categorylist=dict()
+                productlist = dict()
+                for vo in clist:
+                    c={'id':vo.id,'name':vo.name,'pids':[]}
+                    plist=Product.objects.filter(category_id=vo.id,status=1)
+                    for p in plist:
+                        c['pids'].append(p.toDict())
+                        productlist[p.id]=p.toDict()
+                    categorylist[vo.id]=c
+                #将上边的结果存到session中
+                request.session['categorylist']=categorylist
+                request.session['productlist'] = productlist
+
+
                 return redirect(reverse('web_index'))
             else:
                 return redirect(reverse('web_login') + '?errinfo=5')
