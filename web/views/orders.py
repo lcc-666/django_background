@@ -12,7 +12,6 @@ def index(request,pIndex=1):
 
 def insert(request):
     try:
-        print('89745123hjhkjh')
         #执行订单信息的添加
         od=Orders()
         od.shop_id=request.session['shopinfo']['id']
