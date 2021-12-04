@@ -20,7 +20,10 @@ urlpatterns = [
         path('cart/change', cart.change, name='web_cart_change'),
 
         #订单处理路由
-        path('orders/insert',orders.insert,name='web_orders_insert')
+        path('orders/insert',orders.insert,name='web_orders_insert'),
+        path('orders/<int:pIndex>',orders.index,name='web_orders_index'),
+        path('orders/detail',orders.detail,name='web_orders_detail'),
+        path('orders/status',orders.status,name='web_orders_status'),
 
     ]))
 

@@ -4,11 +4,42 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
+from django.core.paginator import Paginator
 
-from myadmin.models import Orders,OrderDetail,Payment
+from myadmin.models import Orders,OrderDetail,Payment,User
 
 def index(request,pIndex=1):
-    pass
+    umod = Orders.objects
+    sid=request.session['shopinfo']['id'] #获取当前店铺id号
+    mywhere = []
+    ulist = umod.filter(shop_id=sid)
+    # 获取并判断搜索条件
+    status = request.GET.get('status', '')
+    if status != '':
+        ulist = ulist.filter(status=status)
+        mywhere.append('status=' + status)
+    # 执行分页处理
+    pIndex = int(pIndex)
+    page = Paginator(ulist, 10)
+    maxpages = page.num_pages
+    # 判断当前数据页是否越界
+    if pIndex > maxpages:
+        pIndex = maxpages
+    if pIndex < 1:
+        pIndex = 1
+    list2 = page.page(pIndex)
+    plist = page.page_range
+
+    for vo in list2:
+        if vo.user_id==0:
+            vo.nick='无'
+        else:
+            user=User.objects.only('nickname').get(id=vo.user_id)
+            vo.nickname=user.nickname
+
+    context = {'orderslist': list2, 'plist': plist, 'pIndex': pIndex, 'maxpages': maxpages, 'mywhere': mywhere}
+    return render(request, 'web/list.html', context)
+
 
 def insert(request):
     try:
@@ -55,10 +86,18 @@ def insert(request):
         return HttpResponse('N')
 
 def detail(request):
-    pass
+    oid=request.GET.get('oid',0)
+    dlist=OrderDetail.objects.filter(order_id=oid)
+    context={'detaillist':dlist}
+    return render(request,'web/detail.html',context)
 
 def status(request):
-    pass
-
-
-
+    try:
+        oid=request.GET.get('oid',0)
+        ob=Orders.objects.get(id=oid)
+        ob.status=request.GET['status']
+        ob.save()
+        return HttpResponse('Y')
+    except Exception as err:
+        print(err)
+        return HttpResponse('N')
