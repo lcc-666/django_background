@@ -4,4 +4,10 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 def index(request):
-    return HttpResponse('欢迎进入会员移动点餐端!')
+    return render(request,'mobile/member.html')
+def orders(request):
+    return render(request,'mobile/member_orders.html')
+def detail(request):
+    return render(request,'mobile/member_detail.html')
+def logout(request):
+    return render(request,'mobile/register.html')
