@@ -1,6 +1,6 @@
 from django.urls import path,include
 
-from web.views import index,cart
+from web.views import index,cart,orders
 urlpatterns = [
     path('',index.index,name='index'),
 
@@ -18,6 +18,9 @@ urlpatterns = [
         path('cart/delete/<str:pid>', cart.delete, name='web_cart_delete'),
         path('cart/clear', cart.clear, name='web_cart_clear'),
         path('cart/change', cart.change, name='web_cart_change'),
+
+        #订单处理路由
+        path('orders/insert',orders.index,name='web_orders_insert')
 
     ]))
 
