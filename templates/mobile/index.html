@@ -113,15 +113,15 @@
 			<div class="cartContentList">
 				<ul class="line-li">
 					<!--li>
-						<img src="img/img01.jpg" alt=""><p>家乐都有机里脊肉 500g</p><span>¥150.00</span>
+						<img src="{% static 'mobile/img/img01.jpg' %}" alt=""><p>家乐都有机里脊肉 500g</p><span>¥150.00</span>
 						<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" readonly class="line" value="9"><button><i class="icon-plus"></i></button></div>
 					</li>
 					<li>
-						<img src="img/img02.jpg" alt=""><p>法国猪肋排 1kg/袋</p><span>¥150.00</span>
+						<img src="{% static 'mobile/img/img02.jpg' %}" alt=""><p>法国猪肋排 1kg/袋</p><span>¥150.00</span>
 						<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" class="line" value="9"><button><i class="icon-plus"></i></button></div>
 					</li>
 					<li>
-						<img src="img/img03.jpg" alt=""><p>乌拉圭进口（无骨）牛肋条 约1kg</p><span>¥150.00</span>
+						<img src="{% static 'mobile/img/img03.jpg' %}" alt=""><p>乌拉圭进口（无骨）牛肋条 约1kg</p><span>¥150.00</span>
 						<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" class="line" value="9"><button><i class="icon-plus"></i></button></div>
 					</li-->
 				</ul>
@@ -140,7 +140,7 @@
 		<!--a href="member-order.html"><i class="icon-allorders"></i>订单</a-->
 		<a href="javascript:void(0)" id="orderCart"><i class="icon-cart"><span>0</span></i>购物车</a>
 		<a href="{% url 'mobile_member_index' %}"><i class="icon-head"></i>我的</a>
-		<a><button onclick="location.href='order.html'">去结算</button></a>
+		<a><button onclick="location.href='{% url 'mobile_addOrders' %}'">去结算</button></a>
 	</menu>
 	
 	<!--弹出圈圈loading-->
