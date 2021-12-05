@@ -23,10 +23,15 @@ class ShopMiddleware:
             if 'webuser' not in request.session:
                 return redirect(reverse('web_login'))
 
+        urllist=['/mobile/register','/mobile/doregister']
+
+        if re.match(r'^/mobile',path) and (path not in urllist):
+            if 'mobileuser' not in request.session:
+                return redirect(reverse('mobile_register'))
+
+
 
         response = self.get_response(request)
-
         # Code to be executed for each request/response after
         # the view is called.
-
         return response

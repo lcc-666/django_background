@@ -10,4 +10,5 @@ def orders(request):
 def detail(request):
     return render(request,'mobile/member_detail.html')
 def logout(request):
+    del request.session['mobileuser']
     return render(request,'mobile/register.html')
