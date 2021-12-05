@@ -2,14 +2,21 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
-from myadmin.models import Member,Shop
+from myadmin.models import Member,Shop,Category,Product
 from datetime import datetime
 
 def index(request):
     shopinfo= request.session.get('shopinfo',None)
     if shopinfo is None:
         return redirect(reverse('mobile_shop'))
-    return render(request,'mobile/index.html')
+    clist=Category.objects.filter(shop_id=shopinfo['id'],status=1)
+    productlist=dict()
+    for vo in clist:
+        plist=Product.objects.filter(category_id=vo.id,status=1)
+        productlist[vo.id]=plist
+    context={'categorylist':clist,'productlist':productlist.items(),'cid':clist[0]}
+    return render(request,'mobile/index.html',context)
+
 def register(request):
     return render(request,'mobile/register.html')
 def doRegister(request):
