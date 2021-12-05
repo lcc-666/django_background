@@ -30,11 +30,14 @@ def doRegister(request):
         ob.save()
         member=ob
     if member.status == 1:
+        # 将当前会员信息转成字典格式并存放到session中
         request.session['mobileuser'] = member.toDict()
-        return redirect(reverse('mobile_index'))
+        # 重定向到登录页
+        return redirect(reverse("mobile_index"))
     else:
-        context = {'info': '此账户信息禁用或非法'}
-        return render(request, 'mobile/register.html', context)
+        context = {"info": '此账户信息禁用！'}
+        return render(request, "mobile/register.html", context)
+
 
 def shop(request):
     return render(request,'mobile/shop.html')
