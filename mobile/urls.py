@@ -1,6 +1,6 @@
 from django.urls import path
 
-from mobile.views import index,member
+from mobile.views import index,member,cart
 urlpatterns = [
     path('',index.index,name='mobile_index'),
 
@@ -14,5 +14,11 @@ urlpatterns = [
     path('member/orders',member.orders,name='mobile_member_orders'),
     path('member/detail',member.detail,name='mobile_member_detail'),
     path('member/logout',member.logout,name='mobile_member_logout'),
+
+#购物车信息管理路由
+    path('cart/add', cart.add, name='mobile_cart_add'),
+    path('cart/delete', cart.delete, name='mobile_cart_delete'),
+    path('cart/clear', cart.clear, name='mobile_cart_clear'),
+    path('cart/change', cart.change, name='mobile_cart_change'),
 
 ]

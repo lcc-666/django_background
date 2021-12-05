@@ -110,21 +110,17 @@
 	cartlist = [];
 
 	function doCartAdd(id){
-		shoplist = [{'id':1,'name':'法国猪肋排','cover_pic':'img/img25.jpg','price':35.00,'num':1},{'id':2,'name':'乌拉圭进口牛肋条','cover_pic':'img/img05.jpg','price':90.00,'num':1}];
-		shop = shoplist[id-1];
-		var b=true;
-		for(var i=0;i<cartlist.length;i++){
-			if(cartlist[i].id==id){
-				b = false;
-				cartlist[i].num += 1;
-				break;
-			}
-		}
-		if(b){
-			cartlist.push(shop);
-		}
-		doShowCart();
-
+	$.ajax({
+            url: "{% url 'mobile_cart_add' %}?pid="+id,
+            type: 'get',
+            data: {},
+            dataType:'json',
+            success:function(res){
+                console.log(res.cartlist);
+                doShowCart(res.cartlist);
+            }
+        });
+        //doShowCart();
 	}
 
 	function doCartClear(){
@@ -132,21 +128,21 @@
 		doShowCart();
 	}
 
-	function doShowCart(){
-		var cartContent = $("#cartContent div.cartContentList ul.line-li");
-		cartContent.empty()
-		var total = 0.0;
-		for(var i=0;i<cartlist.length;i++){
-			var str = "<li>";
-			str += '<img src="'+cartlist[i].cover_pic+'" alt=""><p>'+cartlist[i].name+'</p><span>¥'+cartlist[i].price+'</span>';
-			str += '<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" readonly class="line" value="'+cartlist[i].num+'"><button><i class="icon-plus"></i></button></div>'
-			str += "</li>";
-			cartContent.append(str);
-			total += cartlist[i].price * cartlist[i].num; 
-		}
-		$("#cartContent div.LayerFooter span").html("￥"+total);
-		$("#orderCart i.icon-cart span").html(cartlist.length);
-	}
+	function doShowCart(cartlist){
+        var cartContent = $("#cartContent div.cartContentList ul.line-li");
+        cartContent.empty()
+        var total = 0.0;
+        for(let i in cartlist){
+            var str = "<li>";
+            str += '<img src="/static/uploads/product/'+cartlist[i].cover_pic+'" alt=""><p>'+cartlist[i].name+'</p><span>¥'+cartlist[i].price+'</span>';
+            str += '<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" readonly class="line" value="'+cartlist[i].num+'"><button><i class="icon-plus"></i></button></div>'
+            str += "</li>";
+            cartContent.append(str);
+            total += cartlist[i].price * cartlist[i].num;
+        }
+        $("#cartContent div.LayerFooter span").html("￥"+total);
+        $("#orderCart i.icon-cart span").html(Object.keys(cartlist).length);
+    }
 
 </script>
 {% endblock %}
