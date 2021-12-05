@@ -2,10 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
-from myadmin.models import Member
+from myadmin.models import Member,Shop
 from datetime import datetime
 
 def index(request):
+    shopinfo= request.session.get('shopinfo',None)
+    if shopinfo is None:
+        return redirect(reverse('mobile_shop'))
     return render(request,'mobile/index.html')
 def register(request):
     return render(request,'mobile/register.html')
@@ -17,9 +20,6 @@ def doRegister(request):
     try:
         member=Member.objects.get(mobile=request.POST['mobile'])
     except Exception as err:
-        #print(err)
-        #context = {'info': '此账户信息不存在'}
-        #return render(request, 'mobile/register.html', context)
         ob=Member()
         ob.nickname = '顾客'
         ob.avatar = 'moren.png'
@@ -40,10 +40,13 @@ def doRegister(request):
 
 
 def shop(request):
-    return render(request,'mobile/shop.html')
+    context={'shoplist':Shop.objects.filter(status=1)}
+    return render(request,'mobile/shop.html',context)
 
 def selectShop(request):
-   pass
-
+    sid=request.GET['sid']
+    ob=Shop.objects.get(id=sid)
+    request.session['shopinfo']=ob.toDict()
+    return redirect(reverse('mobile_index'))
 def addOrders(request):
     return render(request,'mobile/addOrders.html')

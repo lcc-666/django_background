@@ -5,7 +5,7 @@
 	<!--头部-->
 	<header class="search" id="search">
 		<div class="header">
-			<h1>田老师红烧肉-朝阳将台路店</h1>
+			<h1>{{ request.session.shopinfo.name }} -- {{ request.session.shopinfo.shop }}</h1>
 		</div>
 		<!--通知公告/客服电话-->
 	</header>
@@ -136,7 +136,7 @@
 
 	<!--底部栏目-->
 	<menu>
-		<a href="shop.html"><i class="icon-selectmore"></i>切换店铺</a>
+		<a href="{% url 'mobile_shop' %}"><i class="icon-selectmore"></i>切换店铺</a>
 		<!--a href="member-order.html"><i class="icon-allorders"></i>订单</a-->
 		<a href="javascript:void(0)" id="orderCart"><i class="icon-cart"><span>0</span></i>购物车</a>
 		<a href="{% url 'mobile_member_index' %}"><i class="icon-head"></i>我的</a>
