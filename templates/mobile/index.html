@@ -107,8 +107,6 @@
 		return false;
 	}
 
-	cartlist = [];
-
 	function doCartAdd(id){
 	$.ajax({
             url: "{% url 'mobile_cart_add' %}?pid="+id,
@@ -124,8 +122,16 @@
 	}
 
 	function doCartClear(){
-		cartlist = [];
-		doShowCart();
+			$.ajax({
+            url: "{% url 'mobile_cart_clear' %}",
+            type: 'get',
+            data: {},
+            dataType:'json',
+            success:function(res){
+                console.log(res.cartlist);
+                doShowCart(res.cartlist);
+            }
+        });
 	}
 
 	function doShowCart(cartlist){
@@ -143,6 +149,15 @@
         $("#cartContent div.LayerFooter span").html("￥"+total);
         $("#orderCart i.icon-cart span").html(Object.keys(cartlist).length);
     }
-
-</script>
+    $.ajax({
+            url: "{% url 'mobile_cart_add' %}",
+            type: 'get',
+            data: {},
+            dataType:'json',
+            success:function(res){
+                console.log(res.cartlist);
+                doShowCart(res.cartlist);
+            }
+        });
+    </script>
 {% endblock %}

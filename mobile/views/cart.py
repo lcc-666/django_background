@@ -27,7 +27,7 @@ def add(request):
 def delete(request):
     # 尝试从session中获取购物车信息
     cartlist = request.session.get('cartlist', {})
-    del cartlist[pid]
+    #del cartlist[pid]
     # 将cartlist放入session
     request.session['cartlist'] = cartlist
     # 相应json格式的购物车信息

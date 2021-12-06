@@ -54,6 +54,13 @@ def selectShop(request):
     sid=request.GET['sid']
     ob=Shop.objects.get(id=sid)
     request.session['shopinfo']=ob.toDict()
+    request.session['cartlist'] = {}
     return redirect(reverse('mobile_index'))
 def addOrders(request):
+    cartlist=request.session.get('cartlist',{})
+    total_money = 0  # 初始化一个总金额
+    # 遍历购物车中的价格进行累加
+    for vo in cartlist.values():
+        total_money += vo['num'] * vo['price']
+    request.session['total_money'] = total_money
     return render(request,'mobile/addOrders.html')
