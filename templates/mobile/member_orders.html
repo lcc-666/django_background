@@ -14,49 +14,31 @@
 	<article class="main-container">
 
 		<!--选项卡-->
-		<nav class="memberOrder-nav line"><a href="#" class="line select">全部</a><a href="#" class="line">排队中</a><a href="#">已完成</a></nav>
+		<nav class="memberOrder-nav line"><a href="{% url 'mobile_member_orders' %}" class="line select">全部</a><a href="{% url 'mobile_member_orders' %}?status=1" class="line">排队中</a><a href="{% url 'mobile_member_orders' %}?status=3">已完成</a></nav>
 		<div class="memberOrder-header"></div>
 
 		<!--列表-->
-		<div class="memberOrder-list line" onclick="location.href='{% url 'mobile_member_detail' %}'">
-			<p>订单编号：201505101551<span>（排队中）</span></p>
+        {% for order in orderslist %}
+          <div class="memberOrder-list line" onclick="location.href='{% url 'mobile_member_detail' %}?pid={{ order.id }}'">
+			<p>订单编号：{{ order.id }}<span>（{{ order.statusinfo }}）</span></p>
 			<div class="order-product line">
 				<ul>
-					<li><img src="{% static 'mobile/img/img02.jpg' %}" alt=""><img src="{% static 'mobile/img/img06.jpg' %}" alt=""><img src="{% static 'mobile/img/img07.jpg' %}" alt=""><img src="{% static 'mobile/img/img08.jpg' %}" alt=""></li>
+					<li>
+                        {% for vo in order.plist %}
+                            <img src="{% static 'uploads/product/' %}{{ vo.product.cover_pic }}" alt="">
+                        {% endfor %}
+                    </li>
 				</ul>
 			</div>
-			<p>共<span>9</span>件，总价：<span>￥117.00</span></p>
+			<p>
+                <b>总价：</b><span>￥{{order.money}}</span> 元 &nbsp;&nbsp;
+                <b>下单时间：</b>{{order.create_at|date:'Y-m-d H:i'}}
+            </p>
 		</div>
 
-		<div class="memberOrder-list line">
-			<p>订单编号：201505101551<span>（已完成）</span></p>
-			<div class="order-product line">
-				<ul>
-					<li><img src="{% static 'mobile/img/img01.jpg' %}" alt=""><img src="{% static 'mobile/img/img03.jpg' %}" alt=""><img src="{% static 'mobile/img/img04.jpg' %}" alt=""><img src="{% static 'mobile/img/img05.jpg' %}" alt=""></li>
-				</ul>
-			</div>
-			<p>共<span>9</span>件，总价：<span>￥117.00</span></p>
-		</div>
+        {% endfor %}
 
-		<div class="memberOrder-list line">
-			<p>订单编号：201505101551<span>（已完成）</span></p>
-			<div class="order-product line">
-				<ul>
-					<li><img src="{% static 'mobile/img/img09.jpg' %}" alt=""><img src="{% static 'mobile/img/img10.jpg' %}" alt=""><img src="{% static 'mobile/img/img11.jpg' %}" alt=""><img src="{% static 'mobile/img/img12.jpg' %}" alt=""></li>
-				</ul>
-			</div>
-			<p>共<span>9</span>件，总价：<span>￥117.00</span></p>
-		</div>
 
-		<div class="memberOrder-list line">
-			<p>订单编号：201505101551<span>（已完成）</span></p>
-			<div class="order-product line">
-				<ul>
-					<li><img src="{% static 'mobile/img/img13.jpg' %}" alt=""><img src="{% static 'mobile/img/img14.jpg' %}" alt=""><img src="{% static 'mobile/img/img15.jpg' %}" alt=""><img src="{% static 'mobile/img/img16.jpg' %}" alt=""></li>
-				</ul>
-			</div>
-			<p>共<span>9</span>件，总价：<span>￥117.00</span></p>
-		</div>
 
 	</article>
 {% endblock %}

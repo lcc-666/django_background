@@ -6,7 +6,7 @@ from django.urls import reverse
 from datetime import datetime
 from django.core.paginator import Paginator
 
-from myadmin.models import Orders,OrderDetail,Payment,User
+from myadmin.models import Orders,OrderDetail,Payment,User,Member
 
 def index(request,pIndex=1):
     umod = Orders.objects
@@ -18,6 +18,7 @@ def index(request,pIndex=1):
     if status != '':
         ulist = ulist.filter(status=status)
         mywhere.append('status=' + status)
+    ulist=ulist.order_by('-id')
     # 执行分页处理
     pIndex = int(pIndex)
     page = Paginator(ulist, 10)
@@ -32,10 +33,15 @@ def index(request,pIndex=1):
 
     for vo in list2:
         if vo.user_id==0:
-            vo.nick='无'
+            vo.nickname='无'
         else:
             user=User.objects.only('nickname').get(id=vo.user_id)
             vo.nickname=user.nickname
+        if vo.member_id==0:
+            vo.membername='大堂顾客'
+        else:
+            member=Member.objects.only('mobile').get(id=vo.member_id)
+            vo.membername=member.mobile
 
     context = {'orderslist': list2, 'plist': plist, 'pIndex': pIndex, 'maxpages': maxpages, 'mywhere': mywhere}
     return render(request, 'web/list.html', context)
