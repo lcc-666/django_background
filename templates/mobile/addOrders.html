@@ -37,20 +37,34 @@
 			</ol>
 			<div class="list">
 				<ul class="line">
-					<li class="select"><i class="icon-alipay"></i>支付宝支付<em class="icon-correct"></em></li>
-					<li><i class="icon-weixinpay"></i>微信支付<em class="icon-correct"></em></li>
+					<li class="select" bank="4" ><i class="icon-alipay"></i>支付宝支付<em class="icon-correct"></em></li>
+					<li bank="1"><i class="icon-weixinpay"></i>微信支付<em class="icon-correct"></em></li>
 				</ul>
 			</div>
 		</div>
-
 		<br><br>
-
 	</article>
 
 	<!--底部栏目-->
 	<footer>
-		<div class="button"><button>提交订单</button></div>
+		<div class="button"><button onclick="doSubmit()">提交订单</button></div>
 		<h4>实付款：¥{{ request.session.total_money }}</h4>
 	</footer>
 
+{% endblock %}
+
+{% block myjavascript %}
+<script type="text/javascript">
+    //支付方式上的单选按钮点击效果
+    $("ul.line li").click(function(){
+        $("ul.line li").removeClass("select");
+        $(this).addClass("select");
+    });
+
+    //执行订单提交操作函数
+    function doSubmit(){
+        bid = $("ul.line li.select").attr("bank"); //获取支付方式
+        window.location.href="{% url 'mobile_doaddorders' %}?bank="+bid;
+    }
+</script>
 {% endblock %}

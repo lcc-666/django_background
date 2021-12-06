@@ -8,7 +8,9 @@ urlpatterns = [
     path('doregister',index.doRegister,name='mobile_doregister'),
     path('shop',index.shop,name='mobile_shop'),
     path('shop/select',index.selectShop,name='mobile_selectShop'),
+
     path('orders/add',index.addOrders,name='mobile_addOrders'),
+    path('orders/doadd',index.doAddOrders,name='mobile_doaddorders'),
 
     path('member',member.index,name='mobile_member_index'),
     path('member/orders',member.orders,name='mobile_member_orders'),
